@@ -1,6 +1,15 @@
+import { useState } from 'react';
 import '../styles/App.scss';
 
 function App() {
+
+  const [numberOfErrors, setNumberOfErrors] = useState(0);
+
+  const handleClick = (ev) => {
+    ev.preventDefault();
+    setNumberOfErrors(numberOfErrors+1);
+  }
+
   return <div className="App">{
     <div className="page">
       <header>
@@ -45,7 +54,8 @@ function App() {
             />
           </form>
         </section>
-        <section className="dummy error-5">
+        <input type="button" onClick={handleClick} value="Incrementar"/>
+        <section className={'dummy error-' + numberOfErrors}>
           <span className="error-13 eye"></span>
           <span className="error-12 eye"></span>
           <span className="error-11 line"></span>
