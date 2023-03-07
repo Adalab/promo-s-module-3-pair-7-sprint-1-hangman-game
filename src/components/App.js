@@ -4,10 +4,22 @@ import '../styles/App.scss';
 function App() {
 
   const [numberOfErrors, setNumberOfErrors] = useState(0);
+  const [lasLetter, setLastLetter] = useState('');
 
   const handleClick = (ev) => {
     ev.preventDefault();
     setNumberOfErrors(numberOfErrors+1);
+  }
+
+  const handleChangeLastLetter = (ev) => {
+    ev.preventDefault();
+    const inputLastLetter = ev.target.value;
+
+    if (/[a-zA-Z]/.test(inputLastLetter)){
+      setLastLetter(ev.target.value);
+    } else {
+      setLastLetter('');
+    }
   }
 
   return <div className="App">{
@@ -44,13 +56,14 @@ function App() {
           </div>
           <form className="form">
             <label className="title" htmlFor="last-letter">Escribe una letra:</label>
-            <input
+            <input onChange={handleChangeLastLetter}
               autocomplete="off"
               className="form__input"
               maxlength="1"
               type="text"
               name="last-letter"
               id="last-letter"
+              value={lasLetter}
             />
           </form>
         </section>
