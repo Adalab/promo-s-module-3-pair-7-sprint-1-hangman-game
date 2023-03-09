@@ -4,7 +4,14 @@ import '../styles/App.scss';
 function App() {
 
   const [numberOfErrors, setNumberOfErrors] = useState(0);
-  const [lasLetter, setLastLetter] = useState('');
+  const [lastLetter, setLastLetter] = useState('');
+  const [word, setWord] = useState('katakroker');
+  const [userLetters, setUserLetters] = useState([]);
+
+  const renderSolutionsLetters = () =>{
+    const wordLetters = word.split('');
+    return wordLetters.map((eachWordLetters) =><li class="letter"></li>);
+  }
 
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -14,12 +21,12 @@ function App() {
   const handleChangeLastLetter = (ev) => {
     ev.preventDefault();
     const inputLastLetter = ev.target.value;
-
-    if (/[a-zA-Z]/.test(inputLastLetter)){
+    if (/[a-zA-Z\Ñ\ñ]/.test(inputLastLetter)){
       setLastLetter(ev.target.value);
     } else {
       setLastLetter('');
     }
+    userLetters.push(setLastLetter);
   }
 
   return <div className="App">{
@@ -32,16 +39,7 @@ function App() {
           <div className="solution">
             <h2 className="title">Solución:</h2>
             <ul className="letters">
-              <li className="letter">k</li>
-              <li className="letter">a</li>
-              <li className="letter"></li>
-              <li className="letter">a</li>
-              <li className="letter">k</li>
-              <li className="letter">r</li>
-              <li className="letter"></li>
-              <li className="letter">k</li>
-              <li className="letter">e</li>
-              <li className="letter">r</li>
+              {renderSolutionsLetters()}
             </ul>
           </div>
           <div className="error">
@@ -63,7 +61,7 @@ function App() {
               type="text"
               name="last-letter"
               id="last-letter"
-              value={lasLetter}
+              value={lastLetter}
             />
           </form>
         </section>
